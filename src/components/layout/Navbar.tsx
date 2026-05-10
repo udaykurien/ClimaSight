@@ -1,0 +1,26 @@
+import { Button } from "@/components/ui/button"
+
+export default function Navbar() {
+  return (
+    <header className="climasight-light fixed top-4 left-4 right-4 z-50 bg-[var(--surface)]/80 backdrop-blur-md border border-[var(--border)] rounded-2xl">
+      <div className="w-full h-12 flex justify-between items-center px-6">
+
+        <div>
+          <span className="text-[var(--accent)] font-bold text-xl">ClimaSight</span>
+        </div>
+
+        <nav className="text-[var(--text)] text-base hidden md:flex items-center gap-8">
+          <a href="#about" className="hover:text-[var(--accent)] transition-colors">About</a>
+          <a href="#features" className="hover:text-[var(--accent)] transition-colors">Features</a>
+          <a href="#screenshots" className="hover:text-[var(--accent)] transition-colors">Screenshots</a>
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" className="text-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--surface)]">Login</Button>
+          <Button className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">Sign Up</Button>
+        </div>
+
+      </div>
+    </header>
+  )
+}

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 
 export default function Navbar() {
   return (
-    <header className="climasight-light fixed top-4 left-4 right-4 z-50 bg-[var(--surface)]/80 backdrop-blur-md border border-[var(--border)] rounded-2xl">
+    <header className="climasight-light fixed top-4 left-4 right-4 z-50 bg-[var(--surface)]/20 backdrop-blur-md border border-[var(--border)] rounded-2xl">
       <div className="w-full h-12 flex justify-between items-center px-6">
 
         <div>

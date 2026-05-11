@@ -1,9 +1,13 @@
 import Navbar from "@/components/layout/Navbar"
+import { Button } from "@/components/ui/button"
+import { useState } from "react"
 
 export default function LandingPage() {
+  const [theme, setTheme] = useState("light")
+
   return (
-    <div className="climasight-light bg-[var(--bg)] min-h-screen dot-grid-light">
-      <Navbar />
+    <div className={`${theme === "light" ? "climasight-light dot-grid-light" : "climasight-dark dot-grid-dark"} bg-[var(--bg)] min-h-screen`}>
+      <Navbar theme={theme} setTheme={setTheme} />
 
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 pt-48 pb-24 text-center">
@@ -63,6 +67,80 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Features section */}
+      <section className="max-w-7xl mx-auto px-6 py-24">
+        <div>
+          <span className="text-[var(--accent)] text-sm font-semibold uppercase tracking-widest">
+            Our Features
+          </span>
+          <h2 className="mt-4 text-4xl font-bold text-[var(--text)]">
+            Everything you need to predict, plan and perform.
+          </h2>
+        </div>
+          <div className="grid grid-cols-3 gap-8 text-center mt-10">
+
+            <div className="rounded-2xl bg-[var(--accent)]/20 backdrop-blur-md border border-[var(--border)] shadow-md p-10">
+              <h3 className="mt-4 text-lg font-bold text-[var(--text)]">
+                Real-time processing
+              </h3>
+              <p className="text-[var(--text-muted)] mt-2">
+                Hourly weather updates with high spatial resolution for your exact site location.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-[var(--accent)]/20 backdrop-blur-md border border-[var(--border)] shadow-md p-10">
+              <h3 className="mt-4 text-lg font-bold text-[var(--text)]">
+                Energy Output Prediction
+              </h3>
+              <p className="text-[var(--text-muted)] mt-2">
+                Correlate wind and solar conditions with expected energy yield.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-[var(--accent)]/20 backdrop-blur-md border border-[var(--border)] shadow-md p-10">
+              <h3 className="mt-4 text-lg font-bold text-[var(--text)]">
+                Extreme Weather Alerts
+              </h3>
+              <p className="text-[var(--text-muted)] mt-2">
+                Get notified before storms, heat waves, or low-wind periods impact your operations.
+              </p>
+            </div>
+          </div>
+      </section>
+
+      {/* CTA */}
+      <section className="max-w-7xl mx-auto px-6 py-24 text-center">
+        <h2 className="mt-4 text-4xl font-bold text-[var(--text)]">
+          Ready to take control?
+        </h2>
+
+        <p className="text-[var(--text-muted)] mt-2">
+          Join energy professionals who rely on ClimaSight to make smarter decisions.
+        </p>
+
+        <Button className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)] mt-8">
+          Get started now
+        </Button>
+      </section>
+
+      {/* Footer */}
+      <div className="bg-[var(--accent)]/10">
+        <footer className="grid grid-cols-2 gap-8 mt-10 max-w-7xl mx-auto px-6 py-6 items-center">
+          <div className="font-bold text-[var(--accent)] text-left">
+            <p>
+              ClimaSight
+            </p>
+          </div>
+
+          <div className="text-[var(--text-muted)] text-right">
+            <p>
+              © 2026 ClimaSight. All rights reserved.
+            </p>
+          </div>
+        </footer>
+      </div>
+
     </div>
   )
 }

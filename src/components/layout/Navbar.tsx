@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button"
 
-export default function Navbar() {
+export default function Navbar({theme, setTheme}) {
   return (
-    <header className="climasight-light fixed top-4 left-4 right-4 z-50 bg-[var(--surface)]/20 backdrop-blur-md border border-[var(--border)] rounded-2xl">
+    <header className="fixed top-4 left-4 right-4 z-50 bg-[var(--surface)]/20 backdrop-blur-md border border-[var(--border)] rounded-2xl">
       <div className="w-full h-12 flex justify-between items-center px-6">
 
         <div>
@@ -16,8 +16,15 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button variant="ghost" className="text-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--surface)]">Login</Button>
-          <Button className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">Sign Up</Button>
+          <Button onClick={()=>setTheme(theme === "light" ? "dark": "light")} variant="ghost" className="text-[var(--bg)] hover:bg-[var(--surface)]">
+            {theme === "light" ? "🌙" : "☀️"}
+          </Button>
+          <Button variant="ghost" className="text-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--surface)]">
+            Login
+          </Button>
+          <Button className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">
+            Sign Up
+          </Button>
         </div>
 
       </div>

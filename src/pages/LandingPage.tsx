@@ -1,9 +1,10 @@
 import Navbar from "@/components/layout/Navbar"
 import { Button } from "@/components/ui/button"
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { ThemeContext } from "@/context/ThemeContext"
 
 export default function LandingPage() {
-  const [theme, setTheme] = useState("light")
+  const { theme, setTheme } = useContext(ThemeContext)
 
   return (
     <div className={`${theme === "light" ? "climasight-light dot-grid-light" : "climasight-dark dot-grid-dark"} bg-[var(--bg)] min-h-screen`}>
@@ -32,7 +33,7 @@ export default function LandingPage() {
       </section>
 
       {/* About Section */}
-      <section className="max-w-7xl mx-auto px-6 py-24">
+      <section id="about" className="max-w-7xl mx-auto px-6 py-24">
         <div className="grid grid-cols-2 gap-16 items-center">
           {/* Left: Text */}
           <div>
@@ -69,7 +70,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features section */}
-      <section className="max-w-7xl mx-auto px-6 py-24">
+      <section id="features" className="max-w-7xl mx-auto px-6 py-24">
         <div>
           <span className="text-[var(--accent)] text-sm font-semibold uppercase tracking-widest">
             Our Features

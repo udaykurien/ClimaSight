@@ -147,6 +147,10 @@
   background-size: 28px 28px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

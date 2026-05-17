@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button"
+import { useContext } from "react"
+import { ThemeContext } from "@/context/ThemeContext"
 
-export default function Navbar({theme, setTheme}) {
+export default function Navbar() {
+  const { theme, setTheme } = useContext(ThemeContext)
   return (
     <header className="fixed top-4 left-4 right-4 z-50 bg-[var(--surface)]/20 backdrop-blur-md border border-[var(--border)] rounded-2xl">
       <div className="w-full h-12 flex justify-between items-center px-6">

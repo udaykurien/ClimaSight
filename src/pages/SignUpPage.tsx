@@ -29,6 +29,22 @@ export default function SignUpPage() {
 
   const[errors, setErrors] = useState<FormErrors>({});
 
+  function validate(): boolean {
+    const newErrors: FormErrors = {}
+    if (!formData.name) newErrors.name = "Name is required"
+    if (!formData.email) newErrors.email = "Email is required"
+    if (!formData.password) newErrors.password = "Password is required"
+    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match"
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (!validate()) return
+    console.log("Form submitted:", formData)
+  }
+
   return(
     <div className={`${theme === "light" ? "climasight-light dot-grid-light" : "climasight-dark dot-grid-dark"} bg-[var(--bg)] min-h-screen`}>
 
@@ -40,7 +56,7 @@ export default function SignUpPage() {
             <h1 className="text-2xl font-bold text-[var(--text)]">Create your account</h1>
             <p className="mt-2 text-sm text-[var(--text-muted)]">Start making smarter energy decisions.</p>
           </div>
-          <form className="flex flex-col gap-6">
+          <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-1">
               <label className="text-sm font-medium text-[var(--text)]">Name</label>
               <input
@@ -85,9 +101,15 @@ export default function SignUpPage() {
               />
               {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword}</p>}
             </div>
-            <Button className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--bg)]">
+            <Button className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--bg)]" type="submit">
               Create Account
             </Button>
+            <p className="text-center text-sm text-[var(--text-muted)]">
+              Already have an account?{" "}
+              <a href="/login" className="text-[var(--accent)] hover:underline">
+                Log in
+              </a>
+            </p>
           </form>
         </div>
       </main>

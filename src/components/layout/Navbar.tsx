@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { useContext } from "react"
 import { ThemeContext } from "@/context/ThemeContext"
+import { Link } from "react-router-dom"
 
 export default function Navbar() {
   const { theme, setTheme } = useContext(ThemeContext)
@@ -25,9 +26,11 @@ export default function Navbar() {
           <Button variant="ghost" className="text-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--surface)]">
             Login
           </Button>
-          <Button className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">
-            Sign Up
-          </Button>
+          <Link to="/signup">
+            <Button className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">
+              Sign Up
+            </Button>
+          </Link>
         </div>
 
       </div>

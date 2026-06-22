@@ -1,4 +1,5 @@
 import Navbar from "@/components/layout/Navbar"
+import Footer from "@/components/layout/Footer"
 import { Button } from "@/components/ui/button"
 import { useState, useContext } from "react"
 import { ThemeContext } from "@/context/ThemeContext"
@@ -13,6 +14,7 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 pt-48 pb-24 text-center">
         <span className="text-[var(--accent)] text-sm font-semibold uppercase tracking-widest">
+
           Meteorological Intelligence
         </span>
         <h1 className="mt-4 text-6xl font-bold text-[var(--text)]">
@@ -126,21 +128,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <div className="bg-[var(--accent)]/10">
-        <footer className="grid grid-cols-2 gap-8 mt-10 max-w-7xl mx-auto px-6 py-6 items-center">
-          <div className="font-bold text-[var(--accent)] text-left">
-            <p>
-              ClimaSight
-            </p>
-          </div>
-
-          <div className="text-[var(--text-muted)] text-right">
-            <p>
-              © 2026 ClimaSight. All rights reserved.
-            </p>
-          </div>
-        </footer>
-      </div>
+      <Footer />
 
     </div>
   )

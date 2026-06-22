@@ -1,4 +1,5 @@
 import Navbar from "@/components/layout/Navbar"
+import Footer from "@/components/layout/Footer"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { useTheme } from "@/context/ThemeContext"
@@ -113,6 +114,8 @@ export default function SignUpPage() {
           </form>
         </div>
       </main>
+
+      <Footer />
 
     </div>
   )

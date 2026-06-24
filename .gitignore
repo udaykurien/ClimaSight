@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# General passwords
+pass.txt
+
+# Keys
+apps/api/.env

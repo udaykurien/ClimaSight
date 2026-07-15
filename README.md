@@ -15,5 +15,5 @@ ClimaSight/packages/types
 ```
 To start local dev servers for monorepo run
 ```bash
-npx turbodev rn
+npx turbo dev
 ```

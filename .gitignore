@@ -28,3 +28,4 @@ pass.txt
 
 # Keys
 apps/api/.env
+apps/web/.env

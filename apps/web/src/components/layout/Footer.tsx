@@ -1,5 +1,3 @@
-import { ThemeContext } from "@/context/ThemeContext"
-
 export default function Footer() {
   return(
     <div className="bg-[var(--accent)]/10">

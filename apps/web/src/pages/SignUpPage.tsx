@@ -3,16 +3,18 @@ import Footer from "@/components/layout/Footer"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { useTheme } from "@/context/ThemeContext"
+import { signUp } from "@/services/auth"
+import type { SignUpRequest } from "@climasight/types"
 
 interface FormData {
-  name: string;
+  fullName: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
 
 interface FormErrors {
-  name?: string;
+  fullName?: string;
   email?: string;
   password?: string;
   confirmPassword?: string;
@@ -22,7 +24,7 @@ export default function SignUpPage() {
   const { theme } = useTheme()
 
   const[formData, setFormData] = useState<FormData>({
-    name:'',
+    fullName:'',
     email:'',
     password:'',
     confirmPassword:'',
@@ -32,7 +34,7 @@ export default function SignUpPage() {
 
   function validate(): boolean {
     const newErrors: FormErrors = {}
-    if (!formData.name) newErrors.name = "Name is required"
+    if (!formData.fullName) newErrors.fullName = "Name is required"
     if (!formData.email) newErrors.email = "Email is required"
     if (!formData.password) newErrors.password = "Password is required"
     if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match"
@@ -40,9 +42,18 @@ export default function SignUpPage() {
     return Object.keys(newErrors).length === 0
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!validate()) return
+
+    const payload: SignUpRequest = {
+      email: formData.email,
+      password: formData.password,
+      fullName: formData.fullName,
+    }
+
+    const response = await signUp(payload)
+    console.log(response)
     console.log("Form submitted:", formData)
   }
 
@@ -64,10 +75,10 @@ export default function SignUpPage() {
                 type="text"
                 placeholder="Name"
                 className="bg-[var(--bg)] border border-[var(--border)] text-[var(--text)] rounded-lg px-4 py-2 text-sm outline-none focus:border-[var(--accent)]"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                value={formData.fullName}
+                onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
               />
-              {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
+              {errors.fullName && <p className="text-red-500 text-xs">{errors.fullName}</p>}
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-sm font-medium text-[var(--text)]">Email</label>

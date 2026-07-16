@@ -1,15 +1,14 @@
 import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
 import { Button } from "@/components/ui/button"
-import { useState, useContext } from "react"
-import { ThemeContext } from "@/context/ThemeContext"
+import { useTheme } from "@/context/ThemeContext"
 
 export default function LandingPage() {
-  const { theme, setTheme } = useContext(ThemeContext)
+  const { theme } = useTheme()
 
   return (
     <div className={`${theme === "light" ? "climasight-light dot-grid-light" : "climasight-dark dot-grid-dark"} bg-[var(--bg)] min-h-screen`}>
-      <Navbar theme={theme} setTheme={setTheme} />
+      <Navbar />
 
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 pt-48 pb-24 text-center">

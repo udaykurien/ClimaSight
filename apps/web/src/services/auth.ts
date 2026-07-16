@@ -1,6 +1,5 @@
 import type { ApiResponse, SignUpRequest, User } from '@climasight/types'
 
-const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/signup`, {
 export async function signUp(payload: SignUpRequest): Promise<ApiResponse<User>> {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/signup`, {
     method: 'POST',
@@ -9,4 +8,7 @@ export async function signUp(payload: SignUpRequest): Promise<ApiResponse<User>>
     },
     body: JSON.stringify(payload)
   })
+
+  const result: ApiResponse<User> = await response.json()
+  return result
 }

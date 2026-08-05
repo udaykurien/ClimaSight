@@ -5,6 +5,7 @@ import { useState } from "react"
 import { useTheme } from "@/context/ThemeContext"
 import { signUp } from "@/services/auth"
 import type { SignUpRequest } from "@climasight/types"
+import { useNavigate } from "react-router-dom"
 
 interface FormData {
   fullName: string;
@@ -18,10 +19,12 @@ interface FormErrors {
   email?: string;
   password?: string;
   confirmPassword?: string;
+  general?: string;
 }
 
 export default function SignUpPage() {
   const { theme } = useTheme()
+  const navigate = useNavigate()
 
   const[formData, setFormData] = useState<FormData>({
     fullName:'',
@@ -53,8 +56,12 @@ export default function SignUpPage() {
     }
 
     const response = await signUp(payload)
-    console.log(response)
-    console.log("Form submitted:", formData)
+
+    if (response.success) {
+        navigate("/confirm-email")
+      } else {
+        setErrors({ ...errors, general: response.error ?? "Something went wrong. Please try again." })
+      }
   }
 
   return(
@@ -68,6 +75,11 @@ export default function SignUpPage() {
             <h1 className="text-2xl font-bold text-[var(--text)]">Create your account</h1>
             <p className="mt-2 text-sm text-[var(--text-muted)]">Start making smarter energy decisions.</p>
           </div>
+
+          {errors.general && (
+            <p className="text-red-500 text-sm mb-4">{errors.general}</p>
+          )}
+
           <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-1">
               <label className="text-sm font-medium text-[var(--text)]">Name</label>

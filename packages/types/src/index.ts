@@ -21,3 +21,9 @@ export interface SignUpRequest {
   password: string
   fullName: string
 }
+
+export interface LoginResponseData {
+  user: User
+  accessToken: string
+  refreshToken: string
+}

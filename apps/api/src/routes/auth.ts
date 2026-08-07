@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { z } from 'zod'
-import type { ApiResponse, User } from '@climasight/types'
+import type { ApiResponse, User, LoginResponseData } from '@climasight/types'
 import { supabaseAnon } from '../config/supabase.js'
 import { validate } from '../middleware/validate.js'
 
@@ -79,8 +79,12 @@ authRouter.post('/login', validate(loginSchema), async (req, res) => {
     createdAt: data.user.created_at
   }
 
-  const response: ApiResponse<User> = {
-    data: user,
+  const response: ApiResponse<LoginResponseData> = {
+    data: {
+      user,
+      accessToken: data.session.access_token,
+      refreshToken: data.session.refresh_token
+    },
     error: null,
     success: true
   }

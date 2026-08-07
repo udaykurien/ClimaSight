@@ -26,9 +26,11 @@ export default function Navbar() {
           <Button onClick={()=>setTheme(theme === "light" ? "dark": "light")} variant="ghost" className="text-[var(--bg)] hover:bg-[var(--surface)]">
             {theme === "light" ? "🌙" : "☀️"}
           </Button>
-          <Button variant="ghost" className="text-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--surface)]">
-            Login
-          </Button>
+          <Link to="/login">
+            <Button variant="ghost" className="text-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--surface)]">
+              Login
+            </Button>
+          </Link>
           <Link to="/signup">
             <Button className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">
               Sign Up

@@ -51,10 +51,16 @@ export default function LoginPage() {
 
     if (response.success) {
       const { accessToken, refreshToken } = response.data!
-      await supabase.auth.setSession({
+      const { error: sessionError } = await supabase.auth.setSession({
         access_token: accessToken,
         refresh_token: refreshToken,
       })
+
+      if (sessionError) {
+        setErrors({ ...errors, general: "Something went wrong logging you in. Please try again." })
+        return
+      }
+
       navigate("/test")
     } else {
       setErrors({ ...errors, general: response.error ?? "Something went wrong. Please try again." })

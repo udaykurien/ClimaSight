@@ -1,8 +1,6 @@
-import Navbar from "@/components/layout/Navbar"
-import Footer from "@/components/layout/Footer"
+import PageLayout from "@/components/layout/PageLayout"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
-import { useTheme } from "@/context/ThemeContext"
 import { signUp } from "@/services/auth"
 import type { SignUpRequest } from "@climasight/types"
 import { useNavigate } from "react-router-dom"
@@ -23,7 +21,6 @@ interface FormErrors {
 }
 
 export default function SignUpPage() {
-  const { theme } = useTheme()
   const navigate = useNavigate()
 
   const[formData, setFormData] = useState<FormData>({
@@ -64,11 +61,8 @@ export default function SignUpPage() {
       }
   }
 
-  return(
-    <div className={`${theme === "light" ? "climasight-light dot-grid-light" : "climasight-dark dot-grid-dark"} bg-[var(--bg)] min-h-screen`}>
-
-      <Navbar />
-
+  return (
+    <PageLayout>
       <main className="flex items-center justify-center min-h-screen px-4">
         <div className="w-full max-w-md bg-[var(--surface)] border border-[var(--border)] rounded-2xl shadow-lg p-8">
           <div className="mb-8">
@@ -137,10 +131,7 @@ export default function SignUpPage() {
           </form>
         </div>
       </main>
-
-      <Footer />
-
-    </div>
+    </PageLayout>
   )
 
 }

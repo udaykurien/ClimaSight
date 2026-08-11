@@ -1,8 +1,6 @@
-import Navbar from "@/components/layout/Navbar"
-import Footer from "@/components/layout/Footer"
+import PageLayout from "@/components/layout/PageLayout"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
-import { useTheme } from "@/context/ThemeContext"
 import { login } from "@/services/auth"
 import { supabase } from "@/lib/supabase"
 import type { LoginRequest } from "@climasight/types"
@@ -20,7 +18,6 @@ interface FormErrors {
 }
 
 export default function LoginPage() {
-  const { theme } = useTheme()
   const navigate = useNavigate()
 
   const [formData, setFormData] = useState<FormData>({
@@ -68,10 +65,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className={`${theme === "light" ? "climasight-light dot-grid-light" : "climasight-dark dot-grid-dark"} bg-[var(--bg)] min-h-screen`}>
-
-      <Navbar />
-
+    <PageLayout>
       <main className="flex items-center justify-center min-h-screen px-4">
         <div className="w-full max-w-md bg-[var(--surface)] border border-[var(--border)] rounded-2xl shadow-lg p-8">
           <div className="mb-8">
@@ -118,9 +112,6 @@ export default function LoginPage() {
           </form>
         </div>
       </main>
-
-      <Footer />
-
-    </div>
+    </PageLayout>
   )
 }

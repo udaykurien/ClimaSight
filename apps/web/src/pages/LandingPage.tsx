@@ -1,15 +1,9 @@
-import Navbar from "@/components/layout/Navbar"
-import Footer from "@/components/layout/Footer"
 import { Button } from "@/components/ui/button"
-import { useTheme } from "@/context/ThemeContext"
+import PageLayout from "@/components/layout/PageLayout"
 
 export default function LandingPage() {
-  const { theme } = useTheme()
-
   return (
-    <div className={`${theme === "light" ? "climasight-light dot-grid-light" : "climasight-dark dot-grid-dark"} bg-[var(--bg)] min-h-screen`}>
-      <Navbar />
-
+    <PageLayout>
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 pt-48 pb-24 text-center">
         <span className="text-[var(--accent)] text-sm font-semibold uppercase tracking-widest">
@@ -125,10 +119,6 @@ export default function LandingPage() {
           Get started now
         </Button>
       </section>
-
-      {/* Footer */}
-      <Footer />
-
-    </div>
+    </PageLayout>
   )
 }

@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button"
-// import { useContext } from "react"
-// import { ThemeContext } from "@/context/ThemeContext"
 import { useTheme } from "@/context/ThemeContext"
+import { useAuth } from "@/context/AuthContext"
 import { Link } from "react-router-dom"
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme()
+  const { session, logout } = useAuth()
   return (
     <header className="fixed top-4 left-4 right-4 z-50 bg-[var(--surface)]/20 backdrop-blur-md border border-[var(--border)] rounded-2xl">
       <div className="w-full h-12 flex justify-between items-center px-6">
@@ -37,18 +37,26 @@ export default function Navbar() {
                 </svg>
                )}
           </Button>
-          <Link to="/login">
-            <Button variant="ghost" className="text-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--surface)]">
-              Login
+          {session == null ? (
+            <>
+              <Link to="/login">
+                <Button variant="ghost" className="text-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--surface)]">
+                  Login
+                </Button>
+              </Link>
+              <Link to="/signup">
+                <Button className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">
+                  Sign Up
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <Button onClick={logout} className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">
+              Logout
             </Button>
-          </Link>
-          <Link to="/signup">
-            <Button className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">
-              Sign Up
-            </Button>
-          </Link>
+          )
+          }
         </div>
-
       </div>
     </header>
   )

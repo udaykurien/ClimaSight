@@ -8,11 +8,13 @@ import ConfirmEmailPage from '@/pages/ConfirmEmailPage'
 import EmailVerifiedPage from "@/pages/EmailVerifiedPage"
 import LoginPage from '@/pages/LoginPage'
 import DashboardPage from '@/pages/DashboardPage'
+import ScrollToHash from '@/components/ScrollToHash'
 
 function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
+        <ScrollToHash />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/signup" element={<SignUpPage />} />

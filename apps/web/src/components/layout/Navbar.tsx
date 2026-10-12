@@ -24,7 +24,6 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           <Button onClick={()=>setTheme(theme === "light" ? "dark": "light")} variant="ghost" className="text-[var(--bg)] hover:bg-[var(--surface)]">
-            {/*{theme === "light" ? "🌙" : "☀️"}*/}
             {theme === "light" ? (
                  // Moon icon
               <svg viewBox="0 0 96 96" fill="currentColor" width="16" height="16" className="text-[var(--accent)]">

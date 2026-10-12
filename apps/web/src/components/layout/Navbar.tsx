@@ -17,9 +17,15 @@ export default function Navbar() {
         </div>
 
         <nav className="text-[var(--text)] text-base hidden md:flex items-center gap-8">
-          <a href="/#about" className="hover:text-[var(--accent)] transition-colors">About</a>
-          <a href="/#features" className="hover:text-[var(--accent)] transition-colors">Features</a>
-          <a href="/#screenshots" className="hover:text-[var(--accent)] transition-colors">Screenshots</a>
+          <Link to="/#about" className="hover:text-[var(--accent)] transition-colors">
+            About
+          </Link>
+          <Link to="/#features" className="hover:text-[var(--accent)] transition-colors">
+            Features
+          </Link>
+          <Link to="/#screenshots" className="hover:text-[var(--accent)] transition-colors">
+            Screenshots
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2">

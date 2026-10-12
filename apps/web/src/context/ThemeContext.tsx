@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 
 type ThemeContextType = {
   theme: string
@@ -13,10 +13,23 @@ export function useTheme() {
   return context
 }
 
+function readStoredTheme() {
+  const storedTheme = localStorage.getItem("theme")
+  if (storedTheme == "dark") {
+    return "dark"
+  }
+  return "light"
+}
+
 export function ThemeProvider({children}: {children:React.ReactNode}) {
-  const[theme, setTheme] = useState("light")
+  const [theme, setTheme] = useState(readStoredTheme)
+
+  useEffect(function () {
+    localStorage.setItem("theme", theme)
+  }, [theme])
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ theme: theme, setTheme: setTheme }}>
       {children}
     </ThemeContext.Provider>
   )

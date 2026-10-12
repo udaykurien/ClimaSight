@@ -3,10 +3,6 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
 
-html {
-  scrollbar-gutter: stable;
-}
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -122,13 +118,13 @@ html {
 }
 
 .climasight-dark {
-  --bg: #1a1a18;
-  --surface: #2a2a26;
+  --bg: #111111;
+  --surface: #202020;
   --border: #3a3a34;
   --text: #eeeeec;
   --text-muted: #9a9996;
-  --accent: #c9a86c;
-  --accent-hover: #b8924d;
+  --accent: #25A8DF; /* #c9a86c;*/
+  --accent-hover: #1C8FC2; /* #b8924d; */
 }
 
 .climasight-light {
@@ -147,7 +143,7 @@ html {
 }
 
 .dot-grid-dark {
-  background-image: radial-gradient(circle, #3d3d3d 1px, transparent 1px);
+  background-image: radial-gradient(circle, #222222 1px, transparent 1px);
   background-size: 28px 28px;
 }
 

@@ -8,6 +8,10 @@ type ProtectedRouteProps = {
 function ProtectedRoute(props: ProtectedRouteProps) {
   const auth = useAuth();
 
+  if (auth.loading) {
+    return null;
+  }
+
   if (auth.session === null) {
     return <Navigate to="/login" replace={true} />;
   }

@@ -58,7 +58,7 @@ export default function LoginPage() {
         return
       }
 
-      navigate("/test")
+      navigate("/dashboard")
     } else {
       setErrors({ ...errors, general: response.error ?? "Something went wrong. Please try again." })
     }

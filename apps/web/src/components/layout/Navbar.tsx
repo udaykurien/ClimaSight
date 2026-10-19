@@ -58,7 +58,7 @@ export default function Navbar() {
             </Button>
             )
           ) : (
-              <span>Loading</span>
+              <span className="text-[var(--text)]">Loading</span>
           )
           }
         </div>

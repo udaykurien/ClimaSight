@@ -5,7 +5,8 @@ import { Link } from "react-router-dom"
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme()
-  const { session, logout } = useAuth()
+  const { session, loading, logout } = useAuth()
+
   return (
     <header className="fixed top-4 left-4 right-4 z-50 bg-[var(--surface)]/20 backdrop-blur-md border border-[var(--border)] rounded-2xl">
       <div className="w-full h-12 flex justify-between items-center px-6">
@@ -42,7 +43,7 @@ export default function Navbar() {
                 </svg>
                )}
           </Button>
-          {session == null ? (
+          {!loading ? ( session == null ? (
             <>
               <Link to="/login">
                 <Button variant="ghost" className="text-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--surface)]">
@@ -59,6 +60,9 @@ export default function Navbar() {
             <Button onClick={logout} className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">
               Logout
             </Button>
+            )
+          ) : (
+              <span>Loading</span>
           )
           }
         </div>

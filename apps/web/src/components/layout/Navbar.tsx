@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button"
 import { useTheme } from "@/context/ThemeContext"
 import { useAuth } from "@/context/AuthContext"
 import { Link } from "react-router-dom"
+import { SunIcon } from "../icons/SunIcon"
+import { MoonIcon } from "../icons/MoonIcon"
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme()

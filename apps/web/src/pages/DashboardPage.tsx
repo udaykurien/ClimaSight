@@ -14,7 +14,7 @@ export default function DashboardPage() {
 
   return (
     <PageLayoutDashboard>
-    <div ref={containerRef}>
+      <div ref={containerRef}>
 
       <h1 className="text-2xl font-bold text-[var(--text)]">Dashboard</h1>
 
@@ -24,7 +24,8 @@ export default function DashboardPage() {
           layout={toGridLayout(defaultLayout)}
           gridConfig={{ cols: 12, rowHeight: 30 }}
           onLayoutChange={function (newLayout) {
-            setLayout(fromGridLayout(newLayout, layout))
+              const converted = fromGridLayout(newLayout, layout)
+              setLayout(converted)
           }}
         >
           {defaultLayout.map(function (item) {

@@ -29,6 +29,9 @@ export default function Navbar() {
           <Link to="/#screenshots" className="hover:text-[var(--accent)] transition-colors">
             Screenshots
           </Link>
+          <Link to="/dashboard" className="hover:text-[var(--accent)] transition-colors">
+            Dashboards
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2">

@@ -2,6 +2,10 @@ import { Button } from "@/components/ui/button"
 import { useTheme } from "@/context/ThemeContext"
 import { useAuth } from "@/context/AuthContext"
 import { Link } from "react-router-dom"
+import { MoonIcon } from "@/components/icons/MoonIcon"
+import { SunIcon } from "@/components/icons/SunIcon"
+import { widgetRegistry } from "@/features/dashboard/widgetRegistry"
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card"
 
 export default function NavbarDashboard() {
   const { theme, setTheme } = useTheme()

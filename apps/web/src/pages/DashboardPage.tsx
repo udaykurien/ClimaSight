@@ -21,14 +21,14 @@ export default function DashboardPage() {
       {mounted && (
         <ReactGridLayout
           width={width}
-          layout={toGridLayout(defaultLayout)}
+          layout={toGridLayout(layout)}
           gridConfig={{ cols: 12, rowHeight: 30 }}
           onLayoutChange={function (newLayout) {
               const converted = fromGridLayout(newLayout, layout)
               setLayout(converted)
           }}
         >
-          {defaultLayout.map(function (item) {
+          {layout.map(function (item) {
             const Widget = widgetRegistry[item.type]
 
             if (Widget === undefined) {

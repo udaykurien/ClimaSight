@@ -7,9 +7,10 @@ import { SunIcon } from "@/components/icons/SunIcon"
 import { widgetRegistry } from "@/features/dashboard/widgetRegistry"
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card"
 
-export default function NavbarDashboard() {
+export default function NavbarDashboard(props: { onAddWidget: (type: string) => void }) {
   const { theme, setTheme } = useTheme()
   const { session, loading, logout } = useAuth()
+  const onAddWidget = props.onAddWidget
 
   const widgetTypes = Object.keys(widgetRegistry)
 
@@ -29,7 +30,11 @@ export default function NavbarDashboard() {
             <HoverCardContent className="bg-[var(--surface)]/60 backdrop-blur-md text-[var(--text)]">
               {widgetTypes.map(function (item) {
                 return <div key = {item}>
-                  <Button className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">
+                  <Button
+                    onClick={function () {
+                      onAddWidget(item)
+                    } }
+                    className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">
                     {item}
                   </Button>
                 </div>

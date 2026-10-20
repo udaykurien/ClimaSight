@@ -12,8 +12,13 @@ export default function DashboardPage() {
   const { width, containerRef, mounted } = useContainerWidth({ measureBeforeMount: true })
   const [layout, setLayout] = useState(defaultLayout)
 
+  function onAddWidget(type: string)
+  {
+    console.log(type)
+  }
+
   return (
-    <PageLayoutDashboard>
+    <PageLayoutDashboard onAddWidget={onAddWidget}>
       <div ref={containerRef}>
 
       <h1 className="text-2xl font-bold text-[var(--text)]">Dashboard</h1>

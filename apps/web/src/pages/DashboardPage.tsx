@@ -6,14 +6,14 @@ import ReactGridLayout, { useContainerWidth } from "react-grid-layout"
 import { toGridLayout, fromGridLayout } from "@/features/dashboard/gridConversion"
 import { useState } from "react"
 import PageLayoutDashboard from "@/components/layout/PageLayoutDashboard"
+import { Button } from "@/components/ui/button"
 
 export default function DashboardPage() {
 
   const { width, containerRef, mounted } = useContainerWidth({ measureBeforeMount: true })
   const [layout, setLayout] = useState(defaultLayout)
 
-  function onAddWidget(type: string)
-  {
+  function onAddWidget(type: string) {
     console.log(type)
     const newItem = {
       id: crypto.randomUUID(),
@@ -24,6 +24,13 @@ export default function DashboardPage() {
       height:4
     }
     const newLayout = layout.concat(newItem)
+    setLayout(newLayout)
+  }
+
+  function onRemoveWidget(id: string) {
+    const newLayout = layout.filter(function (item) {
+      return item.id !== id
+    })
     setLayout(newLayout)
   }
 
@@ -52,6 +59,13 @@ export default function DashboardPage() {
 
             return (
               <div key={item.id} className="border border-[var(--text)]">
+                <Button
+                  onClick={function () {
+                    onRemoveWidget(item.id)
+                  }}
+                >
+                  X
+                </Button>
                 <Widget />
               </div>
             )

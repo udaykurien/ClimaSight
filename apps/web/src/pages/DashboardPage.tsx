@@ -15,6 +15,16 @@ export default function DashboardPage() {
   function onAddWidget(type: string)
   {
     console.log(type)
+    const newItem = {
+      id: crypto.randomUUID(),
+      type: type,
+      x: 0,
+      y: 20,
+      width: 6,
+      height:4
+    }
+    const newLayout = layout.concat(newItem)
+    setLayout(newLayout)
   }
 
   return (
@@ -29,8 +39,8 @@ export default function DashboardPage() {
           layout={toGridLayout(layout)}
           gridConfig={{ cols: 12, rowHeight: 30 }}
           onLayoutChange={function (newLayout) {
-              const converted = fromGridLayout(newLayout, layout)
-              setLayout(converted)
+            const converted = fromGridLayout(newLayout, layout)
+            setLayout(converted)
           }}
         >
           {layout.map(function (item) {

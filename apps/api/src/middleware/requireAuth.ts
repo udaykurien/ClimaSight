@@ -27,18 +27,27 @@ export async function requireAuth(req: Request, res: Response, next: NextFunctio
     res.status(401).json(response)
     return
   }
-
-  const result = await supabaseAnon.auth.getUser(token)
-  if (result.error !== null || result.data.user === null) {
+  try {
+    const result = await supabaseAnon.auth.getUser(token)
+    if (result.error !== null || result.data.user === null) {
+      const response: ApiResponse<never> = {
+        data: null,
+        error: 'Invalid or expired token.',
+        success: false
+      }
+      res.status(401).json(response)
+      return
+    }
+    res.locals.userId = result.data.user.id
+    next()
+  } catch (error) {
+    console.log("Supabase response error: ", error)
     const response: ApiResponse<never> = {
       data: null,
-      error: 'Invalid or expired token.',
+      error: 'Supabase response error.',
       success: false
     }
-    res.status(401).json(response)
+    res.status(500).json(response)
     return
   }
-
-  res.locals.userId = result.data.user.id
-  next()
 }

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express"
 import { ApiResponse } from "@climasight/types"
 import { supabaseAnon } from "../config/supabase.js"
 
-function getTokenFromHeader(header: string | undefined): string | null {
+export function getTokenFromHeader(header: string | undefined): string | null {
   if (header === undefined) {
     return null
   }

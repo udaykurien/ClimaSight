@@ -1,5 +1,10 @@
 import { describe, it, expect, vi } from "vitest"
-import { getTokenFromHeader } from "./requireAuth.js"
+import { Request, Response, NextFunction } from "express"
+import { getTokenFromHeader, requireAuth } from "./requireAuth.js"
+
+const mocks = vi.hoisted(function () {
+  return { getUser: vi.fn() }
+})
 
 vi.mock("../config/supabase.js", function () {
   return {
@@ -36,5 +41,27 @@ describe("getTokenFromHeader", function () {
   it("accepts the scheme in lower or upper or mixed case", function () {
     const result = getTokenFromHeader("BeAreR abc123")
     expect(result).toBe("abc123")
+  })
+})
+
+describe("requireAuth", function () {
+  it("replies 401 and does not call next when there is no Authorization header", async function () {
+    const req = { headers: {} }
+    const res = {
+      status: vi.fn(),
+      json: vi.fn(),
+      locals: {}
+    }
+    res.status.mockReturnValue(res)
+    const next = vi.fn()
+
+    await requireAuth(
+      req as unknown as Request,
+      res as unknown as Response,
+      next as unknown as NextFunction
+    )
+
+    expect(res.status).toHaveBeenCalledWith(401)
+    expect(next).not.toHaveBeenCalled()
   })
 })

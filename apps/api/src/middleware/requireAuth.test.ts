@@ -8,7 +8,7 @@ const mocks = vi.hoisted(function () {
 
 vi.mock("../config/supabase.js", function () {
   return {
-    supabaseAnon: {},
+    supabaseAnon: { auth: { getUser: mocks.getUser } },
     supabaseAdmin: {}
   }
 })
@@ -63,5 +63,10 @@ describe("requireAuth", function () {
 
     expect(res.status).toHaveBeenCalledWith(401)
     expect(next).not.toHaveBeenCalled()
+    expect(res.json).toHaveBeenCalledWith({
+      data: null,
+      error: 'Missing or invalid Authorization header.',
+      success: false
+    })
   })
 })

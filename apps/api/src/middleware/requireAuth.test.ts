@@ -69,4 +69,33 @@ describe("requireAuth", function () {
       success: false
     })
   })
+
+  it("replies 401 and does not call next when Supabase rejects the token", async function () {
+    const req = { headers: { authorization: "Bearer fake123" } }
+    const res = {
+      status: vi.fn(),
+      json: vi.fn(),
+      locals: {}
+    }
+    res.status.mockReturnValue(res)
+    const next = vi.fn()
+    mocks.getUser.mockResolvedValue({
+      data: { user: null },
+      error: { message: "invalid JWT" }
+    })
+
+    await requireAuth(
+      req as unknown as Request,
+      res as unknown as Response,
+      next as unknown as NextFunction
+    )
+
+    expect(res.status).toHaveBeenCalledWith(401)
+    expect(next).not.toHaveBeenCalled()
+    expect(res.json).toHaveBeenCalledWith({
+      data: null,
+      error: 'Invalid or expired token.',
+      success: false
+    })
+  })
 })

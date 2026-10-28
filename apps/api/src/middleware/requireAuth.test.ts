@@ -52,6 +52,93 @@ describe("requireAuth", function () {
       mocks.getUser.mockReset()
     })
 
+  it("replies 503 and does not call next when Supabase is unreachable (status 0)", async function() {
+    const req = { headers: { authorization: "Bearer fake123" } }
+    const res = {
+      status: vi.fn(),
+      json: vi.fn(),
+      locals: {}
+    }
+    res.status.mockReturnValue(res)
+    const next = vi.fn()
+    mocks.getUser.mockResolvedValue({
+      data: { user: null },
+      error: { message: "fetch failed", status: 0 }
+    })
+
+    await requireAuth(
+      req as unknown as Request,
+      res as unknown as Response,
+      next as unknown as NextFunction
+    )
+
+    expect(res.status).toHaveBeenCalledWith(503)
+    expect(next).not.toHaveBeenCalled()
+    expect(res.json).toHaveBeenCalledWith({
+      data: null,
+      error: 'Authentication service unavailable.',
+      success: false
+    })
+  })
+
+  it("replies 503 and does not call next when Supabase returns a server error (status 500)", async function() {
+    const req = { headers: { authorization: "Bearer fake123" } }
+    const res = {
+      status: vi.fn(),
+      json: vi.fn(),
+      locals: {}
+    }
+    res.status.mockReturnValue(res)
+    const next = vi.fn()
+    mocks.getUser.mockResolvedValue({
+      data: { user: null },
+      error: { message: "internal server error", status: 500 }
+    })
+
+    await requireAuth(
+      req as unknown as Request,
+      res as unknown as Response,
+      next as unknown as NextFunction
+    )
+
+    expect(res.status).toHaveBeenCalledWith(503)
+    expect(next).not.toHaveBeenCalled()
+    expect(res.json).toHaveBeenCalledWith({
+      data: null,
+      error: 'Authentication service unavailable.',
+      success: false
+    })
+  })
+
+  it("replies 401 and does not call next when the token is rejected with status 401", async function() {
+    const req = { headers: { authorization: "Bearer fake123" } }
+    const res = {
+      status: vi.fn(),
+      json: vi.fn(),
+      locals: {}
+    }
+    res.status.mockReturnValue(res)
+    const next = vi.fn()
+    mocks.getUser.mockResolvedValue({
+      data: { user: null },
+      error: { message: "token rejected", status: 401 }
+    })
+
+    await requireAuth(
+      req as unknown as Request,
+      res as unknown as Response,
+      next as unknown as NextFunction
+    )
+
+    expect(res.status).toHaveBeenCalledWith(401)
+    expect(next).not.toHaveBeenCalled()
+    expect(res.json).toHaveBeenCalledWith({
+      data: null,
+      error: 'Invalid or expired token.',
+      success: false
+    })
+  })
+
   it("replies 401 and does not call next when there is no Authorization header", async function () {
     const req = { headers: {} }
     const res = {

@@ -29,6 +29,17 @@ export async function requireAuth(req: Request, res: Response, next: NextFunctio
   }
   try {
     const result = await supabaseAnon.auth.getUser(token)
+    // Handle authentication server down/errors
+    if (result.error !== null && result.error.status !== undefined && (result.error.status === 0 || result.error.status >= 500)) {
+      const response: ApiResponse<never> = {
+        data: null,
+        error: 'Authentication service unavailable.',
+        success: false
+      }
+      res.status(503).json(response)
+      return
+    }
+    // Handle invalid or expired token
     if (result.error !== null || result.data.user === null) {
       const response: ApiResponse<never> = {
         data: null,
@@ -38,6 +49,7 @@ export async function requireAuth(req: Request, res: Response, next: NextFunctio
       res.status(401).json(response)
       return
     }
+    // If try is successful and no prior errors, then append userID and call next
     res.locals.userId = result.data.user.id
     next()
   } catch (error) {

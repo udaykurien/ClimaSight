@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest"
+import { describe, it, expect, vi, beforeEach } from "vitest"
 import { Request, Response, NextFunction } from "express"
 import { getTokenFromHeader, requireAuth } from "./requireAuth.js"
 
@@ -44,7 +44,14 @@ describe("getTokenFromHeader", function () {
   })
 })
 
+
+
 describe("requireAuth", function () {
+
+  beforeEach(function () {
+      mocks.getUser.mockReset()
+    })
+
   it("replies 401 and does not call next when there is no Authorization header", async function () {
     const req = { headers: {} }
     const res = {
@@ -98,4 +105,30 @@ describe("requireAuth", function () {
       success: false
     })
   })
+
+  it("stores the user id in res.locals and calls next when the token is valid", async function () {
+    const req = { headers: { authorization: "Bearer fake123" } }
+    const res = {
+      status: vi.fn(),
+      json: vi.fn(),
+      locals: {}
+    }
+    res.status.mockReturnValue(res)
+    const next = vi.fn()
+    mocks.getUser.mockResolvedValue({
+      data: { user: { id: "user-123" } },
+      error: null
+    })
+
+    await requireAuth(
+      req as unknown as Request,
+      res as unknown as Response,
+      next as unknown as NextFunction
+    )
+
+    expect(res.locals).toEqual({ userId: "user-123" })
+    expect(next).toHaveBeenCalledTimes(1)
+    expect(res.status).not.toHaveBeenCalled()
+  })
+
 })

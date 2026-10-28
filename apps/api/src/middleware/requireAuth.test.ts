@@ -131,4 +131,30 @@ describe("requireAuth", function () {
     expect(res.status).not.toHaveBeenCalled()
   })
 
+  it("replies 500 and does not call next when the Supabase call throws", async function () {
+    const req = { headers: { authorization: "Bearer fake123" } }
+    const res = {
+      status: vi.fn(),
+      json: vi.fn(),
+      locals: {}
+    }
+    res.status.mockReturnValue(res)
+    const next = vi.fn()
+    mocks.getUser.mockRejectedValue(new Error("network down"))
+
+    await requireAuth(
+      req as unknown as Request,
+      res as unknown as Response,
+      next as unknown as NextFunction
+    )
+
+    expect(next).not.toHaveBeenCalled()
+    expect(res.status).toHaveBeenCalledWith(500)
+    expect(res.json).toHaveBeenCalledWith({
+      data: null,
+      error: 'Supabase response error.',
+      success: false
+    })
+  })
+
 })

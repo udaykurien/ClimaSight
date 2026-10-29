@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { z } from 'zod'
 import type { ApiResponse, User, LoginResponseData } from '@climasight/types'
-import { supabaseAnon } from '../config/supabase.js'
+import { createAuthClient } from '../config/supabase.js'
 import { validate } from '../middleware/validate.js'
 
 const signUpSchema = z.object({
@@ -18,9 +18,10 @@ const loginSchema = z.object({
 export const authRouter = Router()
 
 authRouter.post('/signup', validate(signUpSchema), async (req, res) => {
+  const authClient = createAuthClient()
   const { email, password, fullName } = req.body
 
-  const { data, error } = await supabaseAnon.auth.signUp({
+  const { data, error } = await authClient.auth.signUp({
     email,
     password,
     options: {
@@ -55,9 +56,10 @@ authRouter.post('/signup', validate(signUpSchema), async (req, res) => {
 })
 
 authRouter.post('/login', validate(loginSchema), async (req, res) => {
+  const authClient = createAuthClient()
   const { email, password } = req.body
 
-  const { data, error } = await supabaseAnon.auth.signInWithPassword({
+  const { data, error } = await authClient.auth.signInWithPassword({
     email,
     password
   })

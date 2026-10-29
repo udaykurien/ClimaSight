@@ -30,6 +30,9 @@ pass.txt
 apps/api/.env
 apps/web/.env
 
+# Turbo
+.turbo/
+
 # Notes
 Notes/
 ClimaSight_Dev_Notes/

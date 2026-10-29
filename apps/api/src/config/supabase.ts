@@ -10,3 +10,13 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY || !SUPABASE_SERVICE_KEY) {
 
 export const supabaseAnon = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 export const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY)
+
+export const createAuthClient = function () {
+  return createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+      detectSessionInUrl: false
+    }
+  })
+}

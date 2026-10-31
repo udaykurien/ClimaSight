@@ -20,3 +20,18 @@ export const createAuthClient = function () {
     }
   })
 }
+
+export const createUserClient = function (token: string) {
+  return createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+      detectSessionInUrl: false
+    },
+    global: {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    }
+  })
+}

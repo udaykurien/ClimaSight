@@ -36,3 +36,8 @@ export interface LayoutItem {
   width: number
   height: number
 }
+
+export interface DashboardLayoutData {
+  layout: LayoutItem[]
+  version: number
+}

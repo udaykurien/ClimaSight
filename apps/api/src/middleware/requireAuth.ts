@@ -51,6 +51,7 @@ export async function requireAuth(req: Request, res: Response, next: NextFunctio
     }
     // If try is successful and no prior errors, then append userID and call next
     res.locals.userId = result.data.user.id
+    res.locals.token = token
     next()
   } catch (error) {
     console.log("Supabase response error: ", error)

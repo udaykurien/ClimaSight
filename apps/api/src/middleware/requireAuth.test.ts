@@ -193,7 +193,7 @@ describe("requireAuth", function () {
     })
   })
 
-  it("stores the user id in res.locals and calls next when the token is valid", async function () {
+  it("stores the user id and token in res.locals and calls next when the token is valid", async function () {
     const req = { headers: { authorization: "Bearer fake123" } }
     const res = {
       status: vi.fn(),
@@ -213,7 +213,7 @@ describe("requireAuth", function () {
       next as unknown as NextFunction
     )
 
-    expect(res.locals).toEqual({ userId: "user-123" })
+    expect(res.locals).toEqual({ userId: "user-123", token: "fake123" })
     expect(next).toHaveBeenCalledTimes(1)
     expect(res.status).not.toHaveBeenCalled()
   })

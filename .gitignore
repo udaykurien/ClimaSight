@@ -33,6 +33,7 @@ apps/web/.env
 # Turbo
 .turbo/
 
-# Notes
+# Personal dev helpers
 Notes/
 ClimaSight_Dev_Notes/
+LocalDevHelpers/

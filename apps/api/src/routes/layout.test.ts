@@ -3,7 +3,6 @@ import express from 'express'
 import type { NextFunction, Request, Response } from 'express'
 import request from 'supertest'
 import { layoutRouter } from './layout.js'
-import { createUserClient } from '../config/supabase.js'
 
 const mocks = vi.hoisted(function () {
   return {
@@ -87,7 +86,7 @@ describe('GET /api/layout', function () {
       error: null
     })
 
-    const response = await request(createApp()).get('/api/layout')
+    await request(createApp()).get('/api/layout')
 
     expect(mocks.createUserClient).toHaveBeenCalledWith('fake-token')
     expect(mocks.from).toHaveBeenCalledWith('dashboard_layouts')

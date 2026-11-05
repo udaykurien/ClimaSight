@@ -123,3 +123,110 @@ describe('GET /api/layout', function () {
     })
   })
 })
+
+describe('PUT /api/layout', function () {
+  it('returns 200 with the saved layout and version when the save succeeds', async function () {
+    mocks.upsert.mockResolvedValue({ error: null })
+
+    const response = await request(createApp()).put('/api/layout').send(validBody)
+
+    expect(response.status).toBe(200)
+    expect(response.body).toEqual({
+      data: { layout: [validItem], version: 1 },
+      error: null,
+      success: true
+    })
+  })
+
+  it('saves the row under the user id from res.locals, not one sent in the body', async function () {
+    mocks.upsert.mockResolvedValue({ error: null })
+
+    await request(createApp())
+      .put('/api/layout')
+      .send({ ...validBody, user_id: 'someone-else' })
+
+    expect(mocks.createUserClient).toHaveBeenCalledWith('fake-token')
+    expect(mocks.upsert).toHaveBeenCalledWith(
+      expect.objectContaining({ user_id: 'user-123', version: 1, layout: [validItem] })
+    )
+  })
+
+  it('strips unknown keys from layout items before saving', async function () {
+    mocks.upsert.mockResolvedValue({ error: null })
+
+    await request(createApp())
+      .put('/api/layout')
+      .send({ version: 1, layout: [{ ...validItem, extra: 'should not be saved' }] })
+
+    expect(mocks.upsert).toHaveBeenCalledWith(
+      expect.objectContaining({ layout: [validItem] })
+    )
+  })
+
+  it('returns 500 with a fixed message when Supabase returns an error', async function () {
+    mocks.upsert.mockResolvedValue({ error: {message: "secret database error details."} })
+
+    const response = await request(createApp())
+      .put('/api/layout')
+      .send(validBody)
+
+    expect(response.status).toBe(500)
+    expect(response.body).toEqual({
+      data: null,
+      error: 'Could not save layout.',
+      success: false
+    })
+  })
+
+  it('returns 500 when the save throws', async function () {
+    mocks.upsert.mockRejectedValue(new Error('network down'))
+
+    const response = await request(createApp())
+      .put('/api/layout')
+      .send(validBody)
+
+    expect(response.status).toBe(500)
+    expect(response.body).toEqual({
+      data: null,
+      error: 'Could not save layout.',
+      success: false
+    })
+  })
+
+  it('returns 400 and does not save when the version is 0', async function () {
+
+    const response = await request(createApp())
+      .put('/api/layout').send({ version: 0, layout: [validItem] })
+
+    expect(response.status).toBe(400)
+    expect(response.body).toEqual({
+      data: null,
+      error: "Version must be a positive whole number.",
+      success: false
+    })
+    expect(mocks.upsert).not.toHaveBeenCalled()
+  })
+
+  it('returns 400 and does not save when the version is not a whole number', async function () {
+
+    const response = await request(createApp())
+      .put('/api/layout').send({ version: 1.5, layout: [validItem] })
+
+    expect(response.status).toBe(400)
+    expect(mocks.upsert).not.toHaveBeenCalled()
+  })
+
+  it('returns 400 and does not save when the layout has more than 50 items', async function () {
+    const tooMany = Array.from({ length: 51 }, function (_unused, index) {
+          return { ...validItem, id: 'w' + index }
+        })
+
+    const response = await request(createApp())
+      .put('/api/layout')
+      .send({ version: 1, layout: tooMany })
+
+    expect(response.status).toBe(400)
+    expect(mocks.upsert).not.toHaveBeenCalled()
+  })
+
+})

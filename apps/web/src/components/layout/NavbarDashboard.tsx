@@ -45,7 +45,7 @@ export default function NavbarDashboard(props: {
             </HoverCardContent>
           </HoverCard>
 
-          <Button onClick={ props.onSaveLayout }>
+          <Button onClick={ props.onSaveLayout } className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">
             Save
           </Button>
         </div>

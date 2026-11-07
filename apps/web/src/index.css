@@ -117,14 +117,15 @@
     --sidebar-ring: oklch(0.556 0 0);
 }
 
+/*
 .climasight-dark {
   --bg: #111111;
   --surface: #202020;
   --border: #3a3a34;
   --text: #eeeeec;
   --text-muted: #9a9996;
-  --accent: #25A8DF; /* #c9a86c;*/
-  --accent-hover: #1C8FC2; /* #b8924d; */
+  --accent: #25A8DF;
+  --accent-hover: #1C8FC2;
 }
 
 .climasight-light {
@@ -135,6 +136,149 @@
   --text-muted: #5a7a7a;
   --accent: #3d8a8a;
   --accent-hover: #2d6e6e;
+}
+*/
+
+/*
+  ClimaSight colors, from the Noctalia scheme.
+
+  Naming: "on-X" is the color for text and icons placed on top of X
+  (on-primary = text on a primary-colored button).
+
+  Section 1 holds the Noctalia colors under readable names (--cs-...).
+  Section 2 keeps the old names (--bg, --surface, --border, --text,
+  --text-muted, --accent, --accent-hover) as aliases, so the existing
+  components keep working without edits.
+*/
+
+.climasight-dark {
+  /* 1. Noctalia colors */
+
+  /* Brand */
+  --cs-primary: #94d785;
+  --cs-on-primary: #003a02;
+  --cs-secondary: #bbccb2;
+  --cs-on-secondary: #263422;
+  --cs-tertiary: #a0cfd2;
+  --cs-on-tertiary: #00373a;
+
+  /* Errors */
+  --cs-error: #ffb4ab;
+  --cs-on-error: #690005;
+
+  /* Page and cards */
+  --cs-surface: #131313;
+  --cs-on-surface: #e2e2e2;
+  --cs-surface-variant: #1f1f1f;
+  --cs-on-surface-variant: #c6c6c6;
+
+  /* Lines and shadows */
+  --cs-outline: #474747;
+  --cs-shadow: #000000;
+
+  /* Hover state */
+  --cs-hover: #a0cfd2;
+  --cs-on-hover: #00373a;
+
+  /* Terminal and code colors */
+  --cs-term-black: #474747;
+  --cs-term-red: #ffb4ab;
+  --cs-term-green: #94d785;
+  --cs-term-yellow: #bbccb2;
+  --cs-term-blue: #a0cfd2;
+  --cs-term-magenta: #94d785;
+  --cs-term-cyan: #bbccb2;
+  --cs-term-white: #e2e2e2;
+
+  --cs-term-bright-black: #919191;
+  --cs-term-bright-red: #ffb4ab;
+  --cs-term-bright-green: #94d785;
+  --cs-term-bright-yellow: #bbccb2;
+  --cs-term-bright-blue: #a0cfd2;
+  --cs-term-bright-magenta: #94d785;
+  --cs-term-bright-cyan: #bbccb2;
+  --cs-term-bright-white: #e2e2e2;
+
+  --cs-term-foreground: #e2e2e2;
+  --cs-term-background: #131313;
+  --cs-term-cursor: #e2e2e2;
+  --cs-term-cursor-text: #131313;
+  --cs-term-selection-text: #c6c6c6;
+  --cs-term-selection-background: #474747;
+
+  /* 2. Old names, now aliases */
+  --bg: var(--cs-surface);
+  --surface: var(--cs-surface-variant);
+  --border: var(--cs-outline);
+  --text: var(--cs-on-surface);
+  --text-muted: var(--cs-on-surface-variant);
+  --accent: var(--cs-primary);
+  --accent-hover: var(--cs-hover);
+}
+
+.climasight-light {
+  /* 1. Noctalia colors */
+
+  /* Brand */
+  --cs-primary: #2e6b27;
+  --cs-on-primary: #ffffff;
+  --cs-secondary: #53634e;
+  --cs-on-secondary: #ffffff;
+  --cs-tertiary: #386569;
+  --cs-on-tertiary: #ffffff;
+
+  /* Errors */
+  --cs-error: #ba1a1a;
+  --cs-on-error: #ffffff;
+
+  /* Page and cards */
+  --cs-surface: #f9f9f9;
+  --cs-on-surface: #1b1b1b;
+  --cs-surface-variant: #eeeeee;
+  --cs-on-surface-variant: #474747;
+
+  /* Lines and shadows */
+  --cs-outline: #c6c6c6;
+  --cs-shadow: #000000;
+
+  /* Hover state */
+  --cs-hover: #386569;
+  --cs-on-hover: #ffffff;
+
+  /* Terminal and code colors */
+  --cs-term-black: #e2e2e2;
+  --cs-term-red: #ba1a1a;
+  --cs-term-green: #2e6b27;
+  --cs-term-yellow: #53634e;
+  --cs-term-blue: #386569;
+  --cs-term-magenta: #428133;
+  --cs-term-cyan: #687760;
+  --cs-term-white: #1b1b1b;
+
+  --cs-term-bright-black: #777777;
+  --cs-term-bright-red: #ba1a1a;
+  --cs-term-bright-green: #2e6b27;
+  --cs-term-bright-yellow: #53634e;
+  --cs-term-bright-blue: #386569;
+  --cs-term-bright-magenta: #428133;
+  --cs-term-bright-cyan: #687760;
+  --cs-term-bright-white: #1b1b1b;
+
+  --cs-term-foreground: #1b1b1b;
+  --cs-term-background: #f9f9f9;
+  --cs-term-cursor: #1b1b1b;
+  --cs-term-cursor-text: #f9f9f9;
+  --cs-term-selection-text: #474747;
+  --cs-term-selection-background: #e2e2e2;
+
+  /* 2. Old names, now aliases */
+  --bg: var(--cs-surface);
+  --surface: var(--cs-surface-variant);
+  --border: var(--cs-outline);
+  --text: var(--cs-on-surface);
+  --text-muted: var(--cs-on-surface-variant);
+  --accent: var(--cs-primary);
+  --accent-hover: var(--cs-hover);
 }
 
 .dot-grid-light {

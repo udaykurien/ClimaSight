@@ -4,14 +4,30 @@ import "react-grid-layout/css/styles.css"
 import "react-resizable/css/styles.css"
 import ReactGridLayout, { useContainerWidth } from "react-grid-layout"
 import { toGridLayout, fromGridLayout } from "@/features/dashboard/gridConversion"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import PageLayoutDashboard from "@/components/layout/PageLayoutDashboard"
 import { Button } from "@/components/ui/button"
+import { getLayout, saveLayout } from "@/services/layout"
 
 export default function DashboardPage() {
 
   const { width, containerRef, mounted } = useContainerWidth({ measureBeforeMount: true })
   const [layout, setLayout] = useState(defaultLayout)
+
+  useEffect(function () {
+    async function loadLayout() {
+      const response = await getLayout()
+      if (response.error !== null) {
+        console.error("Error fetching layout: " + response.error)
+        return
+      }
+      if (response.data !== null) {
+        const { layout: savedLayout } = response.data
+        setLayout(savedLayout)
+      }
+    }
+    loadLayout()
+  }, [])
 
   function onAddWidget(type: string) {
     console.log(type)
@@ -34,8 +50,22 @@ export default function DashboardPage() {
     setLayout(newLayout)
   }
 
+  async function onSaveLayout() {
+    const payload = {
+      version: 1,
+      layout: layout
+    }
+    const response = await saveLayout(payload)
+    if (response.error !== null) {
+      console.error("Layout not saved: " + response.error)
+    }
+  }
+
   return (
-    <PageLayoutDashboard onAddWidget={onAddWidget}>
+    <PageLayoutDashboard
+      onAddWidget={onAddWidget}
+      onSaveLayout={onSaveLayout}
+    >
       <div ref={containerRef}>
 
       <h1 className="text-2xl font-bold text-[var(--text)]">Dashboard</h1>

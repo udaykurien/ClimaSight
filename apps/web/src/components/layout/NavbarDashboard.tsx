@@ -7,7 +7,10 @@ import { SunIcon } from "@/components/icons/SunIcon"
 import { widgetRegistry } from "@/features/dashboard/widgetRegistry"
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card"
 
-export default function NavbarDashboard(props: { onAddWidget: (type: string) => void }) {
+export default function NavbarDashboard(props: {
+  onAddWidget: (type: string) => void
+  onSaveLayout: () => Promise<void>
+}) {
   const { theme, setTheme } = useTheme()
   const { session, loading, logout } = useAuth()
   const onAddWidget = props.onAddWidget
@@ -41,6 +44,10 @@ export default function NavbarDashboard(props: { onAddWidget: (type: string) => 
               })}
             </HoverCardContent>
           </HoverCard>
+
+          <Button onClick={ props.onSaveLayout }>
+            Save
+          </Button>
         </div>
 
         <div className="flex items-center gap-2">

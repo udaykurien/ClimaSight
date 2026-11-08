@@ -80,7 +80,7 @@ export default function DashboardPage() {
           <ReactGridLayout
             width={width}
             layout={toGridLayout(layout)}
-            gridConfig={{ cols: 12, rowHeight: 30 }}
+            gridConfig={{ cols: 25, rowHeight: 15 }}
             onLayoutChange={function (newLayout) {
               const converted = fromGridLayout(newLayout, layout)
               setLayout(converted)

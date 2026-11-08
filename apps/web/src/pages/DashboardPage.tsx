@@ -72,7 +72,9 @@ export default function DashboardPage() {
 
         <h1 className="text-2xl font-bold text-[var(--text)]">Dashboard</h1>
 
-        {loadingLayout && <p className="text-[var(--text-muted)]">Loading layout...</p>}
+        {loadingLayout && <p className="animate-pulse text-[var(--text-muted)]">
+          Loading layout...
+        </p>}
 
         {mounted && (
           <ReactGridLayout

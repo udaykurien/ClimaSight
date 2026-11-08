@@ -9,6 +9,7 @@ import EmailVerifiedPage from "@/pages/EmailVerifiedPage"
 import LoginPage from '@/pages/LoginPage'
 import DashboardPage from '@/pages/DashboardPage'
 import ScrollToHash from '@/components/ScrollToHash'
+import { Toaster } from './components/ui/sonner'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           } />
         </Routes>
       </AuthProvider>
+      <Toaster position="top-right" offset="64px" />
     </ThemeProvider>
   )
 }

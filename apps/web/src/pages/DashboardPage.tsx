@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import PageLayoutDashboard from "@/components/layout/PageLayoutDashboard"
 import { Button } from "@/components/ui/button"
 import { getLayout, saveLayout } from "@/services/layout"
+import { toast } from "sonner"
 
 export default function DashboardPage() {
 
@@ -60,7 +61,10 @@ export default function DashboardPage() {
     const response = await saveLayout(payload)
     if (response.error !== null) {
       console.error("Layout not saved: " + response.error)
+      toast.error("Layout not saved.")
+      return
     }
+    toast.success("Layout saved.")
   }
 
   return (

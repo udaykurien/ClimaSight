@@ -13,10 +13,12 @@ export default function DashboardPage() {
 
   const { width, containerRef, mounted } = useContainerWidth({ measureBeforeMount: true })
   const [layout, setLayout] = useState(defaultLayout)
+  const [loadingLayout, setLoadingLayout] = useState(true)
 
   useEffect(function () {
     async function loadLayout() {
       const response = await getLayout()
+      setLoadingLayout(false)
       if (response.error !== null) {
         console.error("Error fetching layout: " + response.error)
         return
@@ -68,42 +70,43 @@ export default function DashboardPage() {
     >
       <div ref={containerRef}>
 
-      <h1 className="text-2xl font-bold text-[var(--text)]">Dashboard</h1>
+        <h1 className="text-2xl font-bold text-[var(--text)]">Dashboard</h1>
 
-      {mounted && (
-        <ReactGridLayout
-          width={width}
-          layout={toGridLayout(layout)}
-          gridConfig={{ cols: 12, rowHeight: 30 }}
-          onLayoutChange={function (newLayout) {
-            const converted = fromGridLayout(newLayout, layout)
-            setLayout(converted)
-          }}
-        >
-          {layout.map(function (item) {
-            const Widget = widgetRegistry[item.type]
+        {loadingLayout && <p className="text-[var(--text-muted)]">Loading layout...</p>}
 
-            if (Widget === undefined) {
-              return null
-            }
+        {mounted && (
+          <ReactGridLayout
+            width={width}
+            layout={toGridLayout(layout)}
+            gridConfig={{ cols: 12, rowHeight: 30 }}
+            onLayoutChange={function (newLayout) {
+              const converted = fromGridLayout(newLayout, layout)
+              setLayout(converted)
+            }}
+            >
 
-            return (
-              <div key={item.id} className="border border-[var(--text)]">
-                <Button
-                  onClick={function () {
-                    onRemoveWidget(item.id)
-                  }}
-                >
-                  X
-                </Button>
-                <Widget />
-              </div>
-            )
-          })}
+            {layout.map(function (item) {
+              const Widget = widgetRegistry[item.type]
 
-        </ReactGridLayout>
-      )}
+              if (Widget === undefined) {
+                return null
+              }
 
+              return (
+                <div key={item.id} className="border border-[var(--text)]">
+                  <Button
+                    onClick={function () {
+                      onRemoveWidget(item.id)
+                    }}
+                  >
+                    X
+                  </Button>
+                  <Widget />
+                </div>
+              )
+            })}
+          </ReactGridLayout>
+        )}
       </div>
     </PageLayoutDashboard>
   )

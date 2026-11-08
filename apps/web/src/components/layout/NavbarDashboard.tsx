@@ -6,6 +6,17 @@ import { MoonIcon } from "@/components/icons/MoonIcon"
 import { SunIcon } from "@/components/icons/SunIcon"
 import { widgetRegistry } from "@/features/dashboard/widgetRegistry"
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export default function NavbarDashboard(props: {
   onAddWidget: (type: string) => void
@@ -45,10 +56,23 @@ export default function NavbarDashboard(props: {
               })}
             </HoverCardContent>
           </HoverCard>
-
-          <Button onClick={ props.onSaveLayout } className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">
-            Save
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">
+                Save
+              </Button>
+            </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Confirm Save</AlertDialogTitle>
+                  <AlertDialogDescription>Saving overwrites your previous layout. Continue?</AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>No</AlertDialogCancel>
+                  <AlertDialogAction onClick={props.onSaveLayout}>Yes</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
         </div>
 
         <div className="flex items-center gap-2">

@@ -61,7 +61,7 @@ export default function DashboardPage() {
     const response = await saveLayout(payload)
     if (response.error !== null) {
       console.error("Layout not saved: " + response.error)
-      toast.error("Layout not saved.")
+      toast.error("Error! Layout could NOT be saved.")
       return
     }
     toast.success("Layout saved.")

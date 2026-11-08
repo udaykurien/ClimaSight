@@ -169,7 +169,7 @@
   /* Page and cards */
   --cs-surface: #131313;
   --cs-on-surface: #e2e2e2;
-  --cs-surface-variant: #1f1f1f;
+  --cs-surface-variant: #444444;
   --cs-on-surface-variant: #c6c6c6;
 
   /* Lines and shadows */
@@ -234,7 +234,7 @@
   /* Page and cards */
   --cs-surface: #f9f9f9;
   --cs-on-surface: #1b1b1b;
-  --cs-surface-variant: #eeeeee;
+  --cs-surface-variant: #bbbbbb;
   --cs-on-surface-variant: #474747;
 
   /* Lines and shadows */

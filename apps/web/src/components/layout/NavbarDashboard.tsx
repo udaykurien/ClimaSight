@@ -18,17 +18,18 @@ export default function NavbarDashboard(props: {
   const widgetTypes = Object.keys(widgetRegistry)
 
   return (
+    // <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--surface)]/20 backdrop-blur-md">
     <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--surface)]/20 backdrop-blur-md">
       <div className="w-full h-12 flex justify-between items-center px-6">
 
-        <div>
+        <div className="flex items-center gap-6">
           <Link to="/" onClick={() => window.scrollTo(0, 0)}>
             <span className="text-[var(--accent)] font-bold text-xl">ClimaSight</span>
           </Link>
 
           <HoverCard>
             <HoverCardTrigger asChild>
-              <Button variant="ghost" className="text-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--surface)]"> Add Widgets</Button>
+              <Button variant="ghost" className="text-[var(--bg)] bg-[var(--accent)] hover:bg-[var(--accent-hover)]">Widgets</Button>
             </HoverCardTrigger>
             <HoverCardContent className="bg-[var(--surface)]/60 backdrop-blur-md text-[var(--text)]">
               {widgetTypes.map(function (item) {

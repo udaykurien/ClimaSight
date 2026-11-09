@@ -9,6 +9,7 @@ import PageLayoutDashboard from "@/components/layout/PageLayoutDashboard"
 import { Button } from "@/components/ui/button"
 import { getLayout, saveLayout } from "@/services/layout"
 import { toast } from "sonner"
+import type { LayoutItem } from "@climasight/types"
 
 export default function DashboardPage() {
 
@@ -32,17 +33,28 @@ export default function DashboardPage() {
     loadLayout()
   }, [])
 
+  function nextFreeRow(layout: LayoutItem[]): number {
+    let bottomOccupiedRow = 0
+    for (const item of layout) {
+      const currentBottom = item.y + item.height
+      if (currentBottom > bottomOccupiedRow) {
+        bottomOccupiedRow = currentBottom
+      }
+    }
+    return bottomOccupiedRow
+  }
+
   function onAddWidget(type: string) {
     console.log(type)
     const newItem = {
       id: crypto.randomUUID(),
       type: type,
       x: 0,
-      y: 20,
+      y: nextFreeRow(layout),
       width: 6,
       height:4
     }
-    const newLayout = layout.concat(newItem)
+    const newLayout = [...layout, newItem]
     setLayout(newLayout)
   }
 
@@ -74,7 +86,7 @@ export default function DashboardPage() {
     >
       <div ref={containerRef}>
 
-        <h1 className="text-2xl font-bold text-[var(--text)]">Dashboard</h1>
+        {/*<h1 className="text-2xl font-bold text-[var(--text)]">Dashboard</h1>*/}
 
         {loadingLayout && <p className="animate-pulse text-[var(--text-muted)]">
           Loading layout...

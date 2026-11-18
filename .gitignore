@@ -33,6 +33,9 @@ apps/web/.env
 # Turbo
 .turbo/
 
+# Python virtual environments
+.venv/
+
 # Personal dev helpers
 Notes/
 ClimaSight_Dev_Notes/
